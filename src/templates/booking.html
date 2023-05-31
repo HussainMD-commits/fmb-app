@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>FMB - Booking</title>
+</head>
+
+<body>
+  <h1>Booking</h1>
+  {% if response %}
+  <p>Your response for {{ response['Date'] }}:</p>
+  <p>{{ response['Response'] }}</p>
+  {% endif %}
+  {% if success %}
+  <p style="color: green;">{{ success }}</p>
+  {% endif %}
+  <form method="post" action="/booking">
+    <label for="date">Date:</label>
+    <select id="date" name="date" required>
+      {% for item in menu['current_week'] %}
+      <option value="{{ item['Date'] }}" {% if item['Date']==response['Date'] %}selected{% endif %}>{{ item['Date'] }} -
+        {{ item['Day'] }} - {{ item['Menu'] }}</option>
+      {% endfor %}
+      {% for item in menu['next_week'] %}
+      <option value="{{ item['Date'] }}" {% if item['Date']==response['Date'] %}selected{% endif %}>{{ item['Date'] }} -
+        {{ item['Day'] }} - {{ item['Menu'] }}</option>
+      {% endfor %}
+    </select><br><br>
+    <label for="response">Response:</label>
+    <select id="response" name="response" required>
+      {% if response %}
+      <option value="Yes" {% if response['Response']=='Yes' %}selected{% endif %}>Yes</option>
+      <option value="No" {% if response['Response']=='No' %}selected{% endif %}>No</option>
+      {% else %}
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+      {% endif %}
+    </select><br><br>
+    <input type="hidden" id="username" name="username" value="{{ response['Name'] }}" required>
+    <input type="hidden" id="day" name="day" value="{{ response['Day'] }}" required>
+    {% if next_week_menu %}
+    {% if now < next_week_menu_start %} <input type="submit" value="Submit">
+      {% else %}
+      <input type="submit" value="Submit" disabled>
+      <p>Submission is closed for the next week menu.</p>
+      {% endif %}
+      {% else %}
+      <input type="submit" value="Submit">
+      {% endif %}
+      <form method="post" action="/booking">
+        <label for="date">Date:</label>
+        <select id="date" name="date" required>
+          {% for item in menu['current_week'] %}
+          <option value="{{ item['Date'] }}">{{ item['Date'] }} - {{ item['Day'] }} - {{ item['Menu'] }}</option>
+          {% endfor %}
+          {% for item in menu['next_week'] %}
+          <option value="{{ item['Date'] }}">{{ item['Date'] }} - {{ item['Day'] }} - {{ item['Menu'] }}</option>
+          {% endfor %}
+        </select><br><br>
+        <label for="response">Response:</label>
+        <select id="response" name="response" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select><br><br>
+        <input type="hidden" id="username" name="username" value="{{ response['Name'] }}" required>
+        <input type="hidden" id="day" name="day" value="{{ response['Day'] }}" required>
+        <input type="submit" value="Submit">
+      </form>
+</body>
+
+</html>

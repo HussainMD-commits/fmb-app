@@ -1,0 +1,2 @@
+user_password=admin
+admin_password=Windsor53

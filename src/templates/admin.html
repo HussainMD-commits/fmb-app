@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#date').datepicker({
+                dateFormat: 'dd-mm-yy',
+                onSelect: function (selectedDate) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/thaali_count',
+                        data: { selected_date: selectedDate },
+                        success: function (response) {
+                            $('#selected_day').text(response.selected_day);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/get_no_responses',
+                        data: { selected_date: selectedDate },
+                        success: function (response) {
+                            $('#thaali_count').text(response.thaali_count);
+                            $('#not_taking_thaali_count').text(response.not_taking_thaali_count);
+                            if (response && response.remaining_names.length > 0) {
+                                var tableHtml = '<table>' +
+                                    '<thead>' +
+                                    '<tr>' +
+                                    '<th>Name</th>' +
+                                    '<th>Thaali Size</th>' +
+                                    '</tr>' +
+                                    '</thead>' +
+                                    '<tbody>';
+
+                                response.remaining_names.forEach(function (user) {
+                                    tableHtml += '<tr>' +
+                                        '<td>' + user['Name'] + '</td>' +
+                                        '<td>' + user['Thaali Size'] + '</td>' +
+                                        '</tr>';
+                                });
+
+                                tableHtml += '</tbody>' +
+                                    '</table>';
+
+                                $('#remaining_names_table').html(tableHtml);
+                            } else {
+                                $('#remaining_names_table').html('<p>No responses found for the selected date.</p>');
+                            }
+
+                            if (response && response.response_names.length > 0) {
+                                var responseTableHtml = '<table>' +
+                                    '<thead>' +
+                                    '<tr>' +
+                                    '<th>Name</th>' +
+                                    '<th>Thaali Size</th>' +
+                                    '</tr>' +
+                                    '</thead>' +
+                                    '<tbody>';
+
+                                response.response_names.forEach(function (user) {
+                                    responseTableHtml += '<tr>' +
+                                        '<td>' + user['Name'] + '</td>' +
+                                        '<td>' + user['Thaali Size'] + '</td>' +
+                                        '</tr>';
+                                });
+
+                                responseTableHtml += '</tbody>' +
+                                    '</table>';
+
+                                $('#response_table').html(responseTableHtml);
+                            } else {
+                                $('#response_table').html('<p>Everyone is taking Thaali today.</p>');
+                            }
+                            // Calculate thali size counts
+                            var thaaliSizeCounts = {};
+                            response.remaining_names.forEach(function (user) {
+                                var thaaliSize = user['Thaali Size'];
+                                thaaliSizeCounts[thaaliSize] = (thaaliSizeCounts[thaaliSize] || 0) + 1;
+                            });
+
+                            // Update the thali size counts in the UI
+                            var thaaliSizeCountsText = '';
+                            for (var thaaliSize in thaaliSizeCounts) {
+                                var count = thaaliSizeCounts[thaaliSize];
+                                var thaaliSizeText = thaaliSize;
+                                if (count > 1) {
+                                    thaaliSizeText += ' - ' + count;
+                                }
+                                thaaliSizeCountsText += thaaliSizeText + ', ';
+                            }
+                            // Remove trailing comma and space
+                            thaaliSizeCountsText = thaaliSizeCountsText.slice(0, -2);
+
+                            // Update the UI element with the thali size counts
+                            $('#thaliSizeCounts').text(thaaliSizeCountsText);
+
+
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            background-color: #f2f2f2;
+        }
+
+        .header .logo img {
+            max-height: 40px;
+            margin-right: 6px;
+        }
+
+        .header .logo h1 {
+            font-size: 32px;
+            font-weight: 300;
+            color: #485664;
+            font-family: var(--font-secondary);
+        }
+
+        .header .logo h1 span {
+            color: #0ea2bd;
+            font-weight: 500;
+        }
+
+        .logo {
+            text-decoration: none;
+        }
+
+        p {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            color: #333;
+        }
+
+        #selected_day {
+            font-weight: bold;
+            color: #333;
+        }
+
+        #thaali_count,
+        #not_taking_thaali_count {
+            font-weight: bold;
+            color: #333;
+        }
+
+        #remaining_names_table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            background-color: #fff;
+            color: #333;
+        }
+
+        #remaining_names_table th,
+        #remaining_names_table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        #response_table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            background-color: #fff;
+            color: #333;
+        }
+
+        #response_table th,
+        #response_table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff;
+            background: #0ea2bd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #1ec3e0;
+        }
+
+        .button-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #485664;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--color-primary);
+        }
+
+        .admin {
+            font-family: 'Poppins', sans-serif;
+            color: #485664;
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header" class="header fixed-top" data-scrollto-offset="0">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <a href="/" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+                <!-- Uncomment the line below if you also wish to use an image logo -->
+                <!-- <img src="assets/img/logo.png" alt=""> -->
+                <h1 style="margin-top: 0px;margin-bottom: 0px;">FMB<span>.</span></h1>
+            </a>
+            <nav id="navbar" class="navbar">
+                <i class="bi bi-list mobile-nav-toggle d-none"></i>
+            </nav><!-- .navbar -->
+        </div>
+    </header>
+    <h1 class="admin" style="font-size: 30px; text-align: center; margin-top: 20px;">Welcome Admin!</h1>
+    <div class="button-container">
+        <a href="/get_finance_data" class="button">Finance</a>
+        <a href="/admin" class="button">Logout</a>
+    </div>
+    <p>Select a date: <input type="text" id="date" placeholder="Select Date"></p>
+    <p>Selected day: <span id="selected_day"></span></p>
+    <p>Total Thaali to fill: <span id="thaali_count"></span></p>
+    <p>Not taking Thaali: <span id="not_taking_thaali_count"></span></p>
+    <p class="admin" style="font-size: 20px; font-weight: bold; text-align: center">Mumineen taking Thaali Today: [<span
+            id="thaliSizeCounts"></span>]</p>
+    <div id="remaining_names_table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Thaali Size</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <p class="admin" style="font-size: 20px; font-weight: bold; text-align: center">Not taking Thaali today:</p>
+    <div id="response_table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Thaali Size</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</body>
+
+</html>

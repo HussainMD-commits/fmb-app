@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Your Finance</title>
+  <style>
+    /* CSS styles for the table */
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      color: #485664;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    }
+
+    td.field-cell {
+      padding-right: 5px;
+      /* Adjust the right padding for cells in the "Field" column */
+    }
+
+    .back-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      color: #ffffff;
+      background: #0ea2bd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: #1ec3e0;
+    }
+
+    em {
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 style="text-align: center; padding-top: 20px; padding-bottom: 20px;">FMB Hub - 1444H</h1>
+  <a class="back-button" href="/booking">Logout</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for key, value in user_data.items() %}
+      <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <br>
+  <em>*Data may take up to 7 days to reflect after the last payment</em>
+</body>
+
+</html>

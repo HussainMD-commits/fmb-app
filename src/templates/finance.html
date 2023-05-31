@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Finance Page</title>
+  <style>
+    /* CSS styles for the table */
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      color: #485664;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    }
+
+    th:last-child,
+    td:last-child {
+      border-right: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+      font-weight: bold;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #ffffff;
+      background: #0ea2bd;
+      transition: 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .back-button:hover {
+      background-color: #1ec3e0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Finance Data - 1444H</h1>
+  <button class="back-button" onclick="goBack()">Back</button>
+  <table id="finance_table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>No. of Niyaz</th>
+        <th>Total Pledged</th>
+        <th>Total Paid</th>
+        <th>Remaining Balance</th>
+        <th>May</th>
+        <th>June</th>
+        <th>July</th>
+        <th>August</th>
+        <th>September</th>
+        <th>October</th>
+        <th>November</th>
+        <th>December</th>
+        <th>January</th>
+        <th>February</th>
+        <th>March</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in finance_data %}
+      <tr>
+        <td>{{ row['Name'] }}</td>
+        <td>{{ row['No. of Niyaz'] }}</td>
+        <td>{{ row['Total Pledged'] }}</td>
+        <td>{{ row['Total paid'] }}</td>
+        <td>{{ row['Remaining Balance'] }}</td>
+        <td>{{ row['May'] }}</td>
+        <td>{{ row['June'] }}</td>
+        <td>{{ row['July'] }}</td>
+        <td>{{ row['August'] }}</td>
+        <td>{{ row['September'] }}</td>
+        <td>{{ row['October'] }}</td>
+        <td>{{ row['November'] }}</td>
+        <td>{{ row['December'] }}</td>
+        <td>{{ row['January'] }}</td>
+        <td>{{ row['February'] }}</td>
+        <td>{{ row['March'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Faiz al-Mawaidal-Burhaniyah - Windsor</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='assets/img/favicon.png') }}" rel="icon">
+  <link href="{{ url_for('static', filename='assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+
+  <!-- Variables CSS Files. Uncomment your preferred color scheme -->
+  <link href="{{ url_for('static', filename='assets/css/variables.css') }}" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="{{ url_for('static', filename='assets/css/common.css') }}" rel="stylesheet">
+  <!-- Script Tag -->
+  <script src="https://cdn.rawgit.com/Keyang/node-csvtojson/d41f44aa/browser/csvtojson.min.js"></script>
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top" data-scrollto-offset="0">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1>FMB<span>.</span></h1>
+      </a>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link" href="/">Home</a></li>
+          <li><a class="nav-link scrollto" href="index.html#about">About</a></li>
+          <li><a class="nav-link scrollto" href="/booking">Booking</a></li>
+          <li><a class="nav-link scrollto" href="/admin">Admin</a></li>
+          <li><a href="index.html#gallery">Gallery</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle d-none"></i>
+      </nav><!-- .navbar -->
+      <a class="btn-getstarted scrollto" href="index.html#contact">Contact Us</a>
+    </div>
+  </header><!-- End Header -->
+
+  <section id="hero-fullscreen" class="hero-fullscreen d-flex align-items-center">
+    <div class="container d-flex flex-column align-items-center position-relative" data-aos="zoom-out">
+      <h2>Welcome to <span>Faiz al-Mawaid al-Burhaniyah - Windsor</span></h2>
+      <p>A groundbreaking initiative that saw the establishment of community kitchens in towns and cities in different
+        parts of the world where members of the Dawoodi Bohra community reside, the Faiz al-Mawaid al-Burhaniyah (FMB)
+        programme was established with one overarching objective: to provide at least one wholesome and nutritious meal
+        a day to every community household.</p>
+      <div class="d-flex">
+        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+        <a href="https://www.youtube.com/watch?v=H1DXfraUyYg"
+          class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch
+            Video</span></a>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h2>About Us</h2>
+          <p></p>
+        </div>
+
+        <div class="row g-4 g-lg-5" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-lg-5">
+            <div class="about-img">
+              <img src="{{ url_for('static', filename='assets/img/mola.png') }}" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <h3 class="pt-0 pt-lg-5">Some quick facts about Faiz al-Mawaidal-Burhaniyah </h3>
+            <!-- Tabs -->
+            <ul class="nav nav-pills mb-3">
+              <li><a class="nav-link active" data-bs-toggle="pill" href="#tab1">Aqa Mola's Vision</a></li>
+              <li><a class="nav-link" data-bs-toggle="pill" href="#tab2">Benefits of FMB</a></li>
+              <li><a class="nav-link" data-bs-toggle="pill" href="#tab3">Meaning of FMB</a></li>
+            </ul><!-- End Tabs -->
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="tab1">
+                <p class="fst-italic">Syedna Mohammed Burhanuddin’s son and successor, the 53rd and present al-Dai
+                  al-Mutlaq Syedna Mufaddal Saifuddin, has been instrumental in every aspect of its implementation right
+                  from its inception ten years ago. Through his directions and guidance, FMB has managed to achieve its
+                  objectives: ensuring food security with a focus on providing healthy and nutritious meals,
+                  strengthening community bonds, empowering women, preventing food waste and enabling spiritual as well
+                  as material enrichment.
+                </p>
+                <p>FMB was initiated by the 52nd al-Dai al-Mutlaq Syedna Mohammed Burhanuddin, who often expressed an
+                  earnest, but seemingly insurmountable desire: to ensure that no member of the Dawoodi Bohra community
+                  anywhere in the world go to bed hungry. Launched in August 2011, this novel initiative today benefits
+                  over 135,000 community households in 869 cities across the world.</p>
+                <p>Apart from permanent staff, over 7,000 Bohra volunteers strive to keep the community kitchens running
+                  and ensure that fresh, nutritious meals are delivered on time each and every day. Run with voluntary
+                  donations from community members, FMB brings together every member of the community, regardless of
+                  socio-economic status. Over the past ten years, FMB has further expanded outside the Bohra community
+                  to include numerous sustained efforts to provide food to the hungry and impoverished as well as aid
+                  and relief supplies during emergencies and natural calamities.</p>
+                <div class="d-flex align-items-center mt-4">
+                  <h4>"There is no prayer more powerful than the prayer that emanates from someone whose hunger has been
+                    satiated for the person who has provided the meal."</h4>
+                </div>
+                <br>
+                <p>- His Holiness Syedna Mufaddal Saifuddin</p>
+
+              </div><!-- End Tab 1 Content -->
+              <div class="tab-pane fade show" id="tab2">
+                <p class="fst-italic">Many people of the other communities also appreciated this move. One of the print
+                  media wrote: “It is rare to find a common kitchen of two brothers of a family but Dawoodi Bohras are
+                  having a common kitchen for the whole community!”. Another one gave the name “Community Kitchen” to
+                  this service.
+                  Read more: https://www.edmontonjamaat.com/organisations/faiz-ul-mawaid-il-burhaniyah/</p>
+                <div class="d-flex align-items-center mt-4">
+                  <i class="bi bi-check2"></i>
+                  <h4>Shifa</h4>
+                </div>
+
+                <div class="d-flex align-items-center mt-4">
+                  <i class="bi bi-check2"></i>
+                  <h4>Affordable to financially weak</h4>
+                </div>
+
+                <div class="d-flex align-items-center mt-4">
+                  <i class="bi bi-check2"></i>
+                  <h4> Hygienic and Halaal food</h4>
+                </div>
+              </div><!-- End Tab 2 Content -->
+
+              <div class="tab-pane fade show" id="tab3">
+
+                <p class="fst-italic">Meaning of the term Faiz al-Mawaidal-Burhaniyah</p>
+
+                <div class="d-flex align-items-center mt-4">
+                  <i class="bi bi-check2"></i>
+                  <h4>Faiz</h4>
+                </div>
+                <p>The original meaning of faiz (or fayd) indicates an effusion or outpouring, such as water gushing
+                  from a stream or a glass filled until the liquid overflows. It has come to connote anything that is
+                  profuse or in abundance; for example, abundant generosity. In the name Faiz al-Mawaid al-Burhaniyah,
+                  faiz is understood as the abundant blessings or bounties that flow from the mawaid of Syedna Mohammed
+                  Burhanuddin.</p>
+
+                <div class="d-flex align-items-center mt-4">
+                  <i class="bi bi-check2"></i>
+                  <h4>Mawaid</h4>
+                </div>
+                <p>Mawaid is the plural of maaidat, which refers to a dining platter filled with food, or more
+                  specifically, the thaal, the large steel platters around which Dawoodi Bohras traditionally sit and
+                  dine. Found in the Quran and featuring in Fatimi traditions, the term represents a bounty of Allah in
+                  the form of plentiful food. Bohra communal dining halls, where these mawaid, or thaals, are placed,
+                  are also themselves referred to as Mawaid.</p>
+
+                <div class="d-flex align-items-center mt-4">
+                  <i class="bi bi-check2"></i>
+                  <h4>Burhaniyah</h4>
+                </div>
+                <p>An adjective that attributes the mawaid to Syedna Mohammed Burhanuddin. For the Dawoodi Bohras, the
+                  name Faiz al-Mawaid al-Burhaniyah is a continuing reminder of the blessings and benevolence of Syedna
+                  Burhanuddin.</p>
+
+              </div><!-- End Tab 3 Content -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="gallery" class="portfolio" data-aos="fade-up">
+      <div class="container">
+        <div class="section-header">
+          <h2>Gallery</h2>
+          <p>Faiz al-Mawaidal-Burhaniyah khidmat in Windsor</p>
+        </div>
+      </div>
+
+      <div class="container-fluid" data-aos="fade-up" data-aos-delay="200">
+        <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry"
+          data-portfolio-sort="original-order">
+          <div class="row g-0 portfolio-container">
+            <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item filter-app">
+              <img src="https://drive.google.com/uc?export=view&id=1K3uf7IS6HV1C0BUtHmkC4jVa1Z1dXQ7X" class="img-fluid"
+                alt="">
+              <div class="portfolio-info">
+                <a href="https://drive.google.com/uc?export=view&id=1K3uf7IS6HV1C0BUtHmkC4jVa1Z1dXQ7X"
+                  data-gallery="portfolio-gallery" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
+          </div><!-- End Portfolio Container -->
+        </div>
+      </div>
+    </section><!-- End Portfolio Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2>Contact Us</h2>
+          <p>For any enquires regarding FMB, you can contact our team or email us.</p>
+        </div>
+      </div>
+      <div class="map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d94439.32675875427!2d-83.07292155244875!3d42.29497969088959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x883b2ac1b54f886b%3A0xb66cd49527fcdc51!2sWindsor%2C%20ON!5e0!3m2!1sen!2sca!4v1663442976228!5m2!1sen!2sca"
+          frameborder="0" allowfullscreen></iframe>
+      </div><!-- End Google Maps -->
+      <div class="container">
+        <div class="row gy-5 gx-lg-5">
+          <div class="col-lg-4">
+            <div class="info">
+              <h3>Get in touch</h3>
+              <p>Ask us your questions and we'll get back to you regarding your queries.</p>
+              <div class="info-item d-flex">
+                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <div>
+                  <h4>Location:</h4>
+                  <p>Windsor, ON, CA</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-envelope flex-shrink-0"></i>
+                <div>
+                  <h4>Email:</h4>
+                  <a href="mailto:windsorfmb@gmail.com">windsorfmb@gmail.com</a>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-phone flex-shrink-0"></i>
+                <div>
+                  <h4>Call:</h4>
+                  <p>+1 519-991-3853</p>
+                  <p>+1 647-621-8635</p>
+                </div>
+              </div><!-- End Info Item -->
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            <div id="ff-compose"></div>
+            <script async defer
+              src="https://formfacade.com/include/116266125194790179003/form/1FAIpQLSd5GNOALd0hWg2PYx9XS5jTY1I0qD1FZC7e3xCBzIAfEVLoyw/clean.js?div=ff-compose"></script>
+          </div><!-- End Contact Form -->
+        </div>
+      </div>
+    </section><!-- End Contact Section -->
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="footer-legal text-center">
+      <div
+        class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
+        <div class="d-flex flex-column align-items-center align-items-lg-start">
+          <div class="copyright">
+            &copy; Copyright <strong><span>Windsor FMB</span></strong>. All Rights Reserved
+          </div>
+          <p class="footer-heart">
+            Made with <g-emoji class="g-emoji" alias="heart"
+              fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png">
+              <img class="emoji" alt="heart" height="20" width="20"
+                src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png"></g-emoji> by Windsor
+            Mumineen</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </footer><!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ url_for('static', filename='assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vendor/aos/aos.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/vendor/php-email-form/validate.js') }}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
+</body>
+
+</html>

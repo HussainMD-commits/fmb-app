@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>FMB Menu</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script>
+    function resetRadioButtons() {
+      var radioButtons = document.getElementsByName('response');
+      for (var i = 0; i < radioButtons.length; i++) {
+        radioButtons[i].checked = false;
+        radioButtons[i].disabled = false;
+      }
+    }
+    $(document).ready(function () {
+      $('input[type="radio"]').click(function () {
+        var day = $('#day').val();
+        $('input[type="radio"]').not(this).prop('disabled', true);
+        $('input[type="radio"]').each(function () {
+          if (
+            $(this).attr('name') === 'esponse' &&
+            $(this).val() !== 'No' &&
+            $(this).parent().prev().text() === day
+          ) {
+            $(this).prop('disabled', false);
+          }
+        });
+      });
+
+      $('form').submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+          type: 'POST',
+          url: '/submit',
+          data: $(this).serialize(),
+          success: function (response) {
+            if (
+              response.message === 'You have reached the deadline to submit response. Contact Admin.'
+            ) {
+              $('<div></div>')
+                .appendTo('body')
+                .html(
+                  '<div class="response-message"><h6>' +
+                  response.message +
+                  '</h6></div>'
+                )
+                .addClass('response-dialog')
+                .dialog({
+                  modal: true,
+                  title: '<span class="ui-icon ui-icon-closethick"></span> Error',
+                  zIndex: 10000,
+                  autoOpen: true,
+                  width: 'auto',
+                  resizable: false,
+                  buttons: {
+                    OK: function () {
+                      $(this).dialog('close');
+                      $('#notification').empty();
+                      $('input[name="response"]').prop('disabled', false).prop('checked', false);
+                    },
+                  },
+                  close: function (event, ui) {
+                    $(this).remove();
+                  },
+                });
+            } else {
+              $('<div></div>')
+                .appendTo('body')
+                .html(
+                  '<div class="response-message"><h6>' + response.message + '</h6></div>'
+                )
+                .addClass('response-dialog')
+                .dialog({
+                  modal: true,
+                  title: 'Notification',
+                  zIndex: 10000,
+                  autoOpen: true,
+                  width: 'auto',
+                  resizable: false,
+                  buttons:
+                  {
+                    OK: function () {
+                      $(this).dialog('close');
+                      $('#notification').empty();
+                      $('input[name="response"]').prop('disabled', false).prop('checked', false);
+                    },
+                  },
+                  close: function (event, ui) {
+                    $(this).remove();
+                  },
+                });
+            }
+          },
+          error: function () {
+            $('<div></div>')
+              .appendTo('body')
+              .html(
+                '<div class="response-message"><h6>An error occurred while submitting your response. Please try again later.</h6></div>'
+              )
+              .addClass('response-dialog')
+              .dialog({
+                modal: true,
+                title: '<span class="ui-icon ui-icon-closethick"></span> Error',
+                zIndex: 10000,
+                autoOpen: true,
+                width: 'auto',
+                resizable: false,
+                buttons: {
+                  OK: function () {
+                    $(this).dialog('close');
+                    $('#notification').empty();
+                    $('input[name="response"]').prop('disabled', false).prop('checked', false);
+                  },
+                },
+                close: function (event, ui) {
+                  $(this).remove();
+                },
+              });
+          }
+        });
+      });
+    });
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+      background-color: rgb(246, 240, 240);
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      color: #485664;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    h2 {
+      margin-top: 10px;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: var(--color-primary);
+    }
+
+    .notification {
+      display: none;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .notification.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .notification.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .notification button {
+      margin-left: 10px;
+      padding: 5px 10px;
+    }
+
+    .disabled {
+      color: #999;
+      cursor: not-allowed;
+    }
+
+    .menu-form input[type="submit"].disabled-submit {
+      background-color: #ccc;
+      color: #999;
+      border: 1px solid #999;
+    }
+
+    .response-dialog {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .response-message {
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      font-family: var(--font-secondary);
+    }
+
+    .ui-icon {
+      background-image: url("https://jqueryui.com/resources/demos/dialog/images/ui-icons_444444_256x240.png");
+      background-position: -64px -16px;
+      width: 16px;
+      height: 16px;
+    }
+
+    .ui-dialog.ui-dialog-titlebar {
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      font-family: var(--font-secondary);
+    }
+
+    .ui-dialog.ui-dialog-titlebar.ui-icon {
+      background-image: url("https://jqueryui.com/resources/demos/dialog/images/ui-icons_444444_256x240.png");
+      background-position: -64px -16px;
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+      font-family: var(--font-secondary);
+    }
+
+    .header .logo img {
+      max-height: 40px;
+      margin-right: 6px;
+    }
+
+    .header .logo h1 {
+      font-size: 32px;
+      font-weight: 300;
+      color: #485664;
+      font-family: var(--font-secondary);
+    }
+
+    .header .logo h1 span {
+      color: #0ea2bd;
+      font-weight: 500;
+    }
+
+    .logo {
+      text-decoration: none;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      color: #ffffff;
+      background: #0ea2bd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #1ec3e0;
+    }
+
+    .button-container {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header id="header" class="header fixed-top" data-scrollto-offset="0">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1 style="margin-top: 0px;margin-bottom: 0px;">FMB<span>.</span></h1>
+      </a>
+      <nav id="navbar" class="navbar">
+        <i class="bi bi-list mobile-nav-toggle d-none"></i>
+      </nav><!-- .navbar -->
+    </div>
+  </header>
+  <h1 style="font-size: 30px; text-align: center; margin-top: 20px;">Welcome {{ user }}!</h1>
+  <div class="button-container">
+    <a href="/get_user_finance_data" class="button">Finance</a>
+    <a href="/booking" class="button">Logout</a>
+  </div>
+  {% if current_week_menu %}
+  <h3>Current Week Menu:</h3>
+  <p>You have reached the deadline to submit a response for the current week. If there are any changes, please contact
+    <a href="mailto:windsorfmb@gmail.com">windsorfmb@gmail.com</a>.
+  </p>
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Day</th>
+      <th>Menu</th>
+    </tr>
+    {% for menu in current_week_menu %}
+    <tr>
+      <td>{{ menu['Date'] }}</td>
+      <td>{{ menu['Day'] }}</td>
+      <td>{{ menu['Menu'] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+  <h3>Next Week Menu:</h3>
+  <p>You can submit a response for the next week until Saturday EOD. For wrong submissions please contact <a
+      href="mailto:windsorfmb@gmail.com">windsorfmb@gmail.com</a>.</p>
+  </p>
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Day</th>
+      <th>Menu</th>
+      <th>Response <button type="button" style="margin-left: 12px;" class="reset-button"
+          onclick="resetRadioButtons()">Reset</button></th>
+    </tr>
+    {% for menu in next_week_menu %}
+    <tr>
+      <td>{{ menu['Date'] }}</td>
+      <td>{{ menu['Day'] }}</td>
+      <td>{{ menu['Menu'] }}</td>
+      <td style="padding-left: 20px;">
+        <form class="response-form">
+          <input type="hidden" name="name" value="{{ user }}">
+          <input type="hidden" name="date" value="{{ menu['Date'] }}">
+          <input type="hidden" name="day" value="{{ menu['Day'] }}">
+          <input type="radio" id="No" name="response" value="No" {% if menu['disable_submit'] %}disabled{% endif %}>
+          <label for="No">No</label>
+          {% if menu['disable_submit'] %}
+          <p class="error-message">Past menu or submission deadline reached</p>
+          {% endif %}
+          <button type="submit" style="margin-left: 30px;" {% if menu['disable_submit'] %}disabled{% endif
+            %}>Submit</button>
+        </form>
+    </tr>
+    {% endfor %}
+  </table>
+  <div class="notification" id="notification"></div>
+</body>
+
+</html>
